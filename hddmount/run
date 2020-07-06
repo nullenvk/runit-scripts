@@ -1,0 +1,22 @@
+#!/bin/sh
+exec 2>&1
+
+set -e
+CONFIG_FILE="/etc/sv/hddmount/conf"
+
+# source config file
+test ! -r "$CONFIG_FILE" || . $CONFIG_FILE
+
+test -e "$CRYPT_DEV" || exit 0
+test -e "$CRYPT_KEY" || exit 0
+test -n "$CRYPT_NAME" || exit 0
+test -n "$MOUNT_DIR" || exit 0
+test -n "$NEW_RUNLEVEL" || exit 0
+
+if [ ! -b /dev/mapper/$CRYPT_NAME ]; then
+	cryptsetup luksOpen $CRYPT_DEV $CRYPT_NAME --key-file $CRYPT_KEY
+fi
+
+mountpoint -q $MOUNT_DIR || mount /dev/mapper/$CRYPT_NAME $MOUNT_DIR
+
+runsvchdir $NEW_RUNLEVEL

@@ -1,0 +1,6 @@
+#!/bin/sh
+CRYPT_DEV=		    # Partition to be decrypted
+CRYPT_KEY=		    # Cryptsetup keyfile
+CRYPT_NAME=		    # /dev/mapper/ name
+MOUNT_DIR=		    # Mount directory
+NEW_RUNLEVEL=		    # Runlevel after successful mount
