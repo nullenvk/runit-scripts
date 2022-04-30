@@ -24,7 +24,10 @@ draw() {
 }
 
 showhelp() {
-    echo "Help here"
+    echo "Usage: ./svmon [-hs]"
+    echo "Arguments:"
+    echo "    -h - Show help"
+    echo "    -s - Print status of all services and quit"
     exit 1
 }
 
